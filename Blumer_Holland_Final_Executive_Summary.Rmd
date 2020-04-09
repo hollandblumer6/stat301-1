@@ -1,0 +1,142 @@
+---
+title: "Final Project EDA Executive Summary"
+subtitle: "STAT 301-1 Data Science I"
+author: "Holland Blumer"
+date: "December 8^th^, 2019"
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    highlight: "tango"
+---
+#### Load Packages
+```{r}
+library(tidyverse)
+library(tidyr)
+library(ggplot2)
+library(grid)
+library(gridExtra)
+```
+<br>
+
+# Works Cited
+“An Introduction to Stock Market Data Analysis with R (Part 1).” NT Guardian, 28 Mar. 2017, ntguardian.wordpress.com/2017/03/27/introduction-stock-market-data-r-1/.
+
+Grolemund, Garrett, and Hadley Wickham. “R For Data Science.” R For Data Science, r4ds.had.co.nz/index.html.
+
+“NASDAQ Composite (^IXIC) Historical Data.” Yahoo! Finance, Yahoo!, 1 Nov. 2019, finance.yahoo.com/quote/%5EIXIC/history?period1=1483250400&period2=1514700000&interval=1d&filter=history&frequency=1d.
+
+“NCDC Storm Events Database.” Data.gov, Responsible Party DOC/NOAA/NESDIS/NCEI > National Centers for Environmental Information, NESDIS, NOAA, U.S. Department of Commerce (Point of Contact), 27 Feb. 2019, catalog.data.gov/dataset/ncdc-storm-events-database.
+
+“S&amp;P 500 (^GSPC) Historical Data.” Yahoo! Finance, Yahoo!, 7 Dec. 2019, finance.yahoo.com/quote/%5EGSPC/history?p=%5EGSPC.
+<br>
+
+
+# Introduction
+There are countless opportunities to get involved in algorithmic trading. When coding a trading algorithm, beginners tend to make simple mathematical algorithms that guess the stock prices of the next day based on the average stock prices of the previous days. Other traders might apply some probability theorems to eliminate all of the noise in the data. However, countless factors impact the day-to-day stock prices and that's why it's easy to jump into this industry. I want to explore some of these factors that may guide my trading algorithms in the future, and R is a great program to do this. This project was the perfect way to apply the skills I have learned in the class to determine whether or not an outside factor is impactful on the market prices. For this project, I chose to analyze the geographical range of a storm in the U.S in 2017 and compare is to stock prices in 2017. 
+<br>
+
+# Tidy Data
+I tidied the data so that I could compare the range of the storms in America in 2017 to the open and close prices on the NASDAQ and S&P 500 markets. In the StormEvents_locations-ftp_v1.0_d2017_c20190817 copy.csv file, I had to compute the mean of the ranges for each month to compare it with the monthly open and close prices for NASDAQ AND S&P 500. I had trouble parsing the dates in that same file, so I rewrote the data to make a new tibble. Then I combined that tibble with another tibble I created for the data in the ^IXIC_monthly_2017.csv file (The monthly NASDAQ data in 2017). Later, I made another tibble for the S&P 500 tibble and combined it to the other relevant data in another file. 
+<br>
+
+# EDA Analysis
+After tidying the data, I was curious to find trends. I chose to compare the range variable in the storm dataset because the other variables that pinpointed the origin of the store cannot be compared with prices. The range essentially measures the range of the storm from its origin. I included the codebook from the original data set in the folder. I made plenty of graphs to spot the trends and plotted them side-by-side. I also coded while loops to loop through each month and compare the values from the month before. 
+<br>
+```{r}
+storm_events_2017_by_month <- read.csv('unprocessed data/StormEvents_locations-ftp_v1.0_d2017_c20190817 copy.csv')
+nasdaq_2017_by_month <- read.csv('unprocessed data/^IXIC_monthly_2017.csv')
+
+storm_events_2017_by_month_tibble <- tibble(
+  date_unformatted = storm_events_2017_by_month$YEARMONTH,
+  range = storm_events_2017_by_month$RANGE)
+
+filter_jan_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201701)
+  mean_jan_range <- mean(filter_jan_storms_2017$range)
+
+filter_feb_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201702)
+  mean_feb_range <- mean(filter_feb_storms_2017$range)
+
+filter_mar_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201703)
+  mean_mar_range <- mean(filter_mar_storms_2017$range)
+  
+filter_apr_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201704)
+  mean_apr_range <- mean(filter_apr_storms_2017$range)
+  
+filter_may_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201705)
+  mean_may_range <- mean(filter_may_storms_2017$range)
+  
+filter_jun_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201706)
+  mean_jun_range <- mean(filter_jun_storms_2017$range)
+
+filter_jul_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201707)
+  mean_jul_range <- mean(filter_jul_storms_2017$range)
+  
+filter_aug_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201708)
+  mean_aug_range <- mean(filter_aug_storms_2017$range)
+  
+filter_sep_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201709)
+  mean_sep_range <- mean(filter_sep_storms_2017$range)
+  
+filter_oct_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201710)
+  mean_oct_range <- mean(filter_oct_storms_2017$range)
+
+filter_nov_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201711)
+  mean_nov_range <- mean(filter_nov_storms_2017$range)
+  
+filter_dec_storms_2017 <- filter(storm_events_2017_by_month_tibble, date_unformatted == 201712)
+  mean_dec_range <- mean(filter_dec_storms_2017$range)
+
+month_year_weather_2017 <- c("01/2017","02/2017","03/2017","04/2017","05/2017","06/2017","07/2017","08/2017","09/2017","10/2017","11/2017","12/2017")
+mean_range_values <- c(mean_jan_range, mean_feb_range, mean_mar_range, mean_apr_range, mean_may_range, mean_jun_range, mean_jul_range, mean_aug_range, mean_sep_range, mean_oct_range, mean_nov_range, mean_dec_range)
+tidy_range_tibble <- tibble(month_year_weather_2017, mean_range_values)
+
+tidy_range_plot <- tidy_range_tibble %>%
+  ggplot(aes(month_year_weather_2017, mean_range_values, group = 1)) +
+  geom_line() +
+  xlab("Month in 2017") +
+  ylab("Range") +
+  ggtitle("Average Range of Storms Each Month in 2017") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) 
+tidy_range_plot
+
+nasdaq_2017_by_month_tibble <- tibble(
+  date_nasdaq_month = nasdaq_2017_by_month$Date,
+  close_nasdaq_month = nasdaq_2017_by_month$Close,
+  open_nasdaq_month = nasdaq_2017_by_month$Open)
+
+nasdaq_2017_by_month_plot <- nasdaq_2017_by_month_tibble %>%
+  ggplot(aes(date_nasdaq_month, group = 1)) +
+  geom_line(aes(y=close_nasdaq_month, group = 1), color = "blue") +
+  geom_line(aes(y=open_nasdaq_month, group = 1), color = "green") +
+  xlab("Month in 2017") +
+  ylab("Price") +
+  ggtitle("Price of Nasdaq per Month in 2017") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) 
+nasdaq_2017_by_month_plot 
+
+weather_nasdaq_2017_combined <- merge(nasdaq_2017_by_month_tibble, tidy_range_tibble, by = 0, all = TRUE, sort = FALSE)
+
+sp500_by_month_2017_tibble <- tibble(
+  date_sp500_month = sp500_by_month_2017$Date,
+  open_sp500_month = sp500_by_month_2017$Open,
+  close_sp500_month = sp500_by_month_2017$Close)
+sp500_by_month_2017_tibble
+
+sp500_2017_by_month_plot <- sp500_by_month_2017_tibble %>%
+  ggplot(aes(date_sp500_month, close_sp500_month, group = 1)) +
+  geom_line(color="orange") +
+  xlab("Month in 2017") +
+  ylab("Price") +
+  ggtitle("Closing S&P 500 Prices per Month in 2017") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) 
+sp500_2017_by_month_plot
+
+grid.arrange(tidy_range_plot, nasdaq_2017_by_month_plot, sp500_2017_by_month_plot, nrow=3)
+
+```
+<br>
+# EDA Interesting Insights/Conclusion
+I gained many insights from this process. First, I realized that the adjacent_close prices and the close prices were the same for the NASDAQ and the S&P 500 datasets and that there were multiple occurrences where the close and the open prices were not the same. For the S&P 500 dataset, for example, the difference in the open and closing prices was ~1%. That was a small difference for this exercise but could have a huge impact on trading bots that are trading lots of money at different milliseconds throughout the day. I plan to research what causes the difference. I also plan to find more storm datasets with variables such as the intensity of an earthquake, the number of homes damaged, the number of injuries, etc. I also learned that I can create an algorithm for trading using the quantmode package in r. I also got more practice coding while/for loops in r which are really useful and convenient. 
+

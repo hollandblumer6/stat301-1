@@ -1,0 +1,48 @@
+Code Book
+Holland Blumer
+12-8-19
+
+nasdaq_2017_by_day: the variable that sources the NASDAQ data each day for 3+ months in 2017
+
+nasdaq_2017_by_day_tibble: a tibble that contains price information for NASDAQ in 2017
+
+nasdaq_2017_plot: A plot of the data in the nasdaq_2017_by_day_tibble
+
+storm_events_2017_by_month_tibble: the variable that sources the Storm Events data each month in 2017
+
+storm_events_2017_by_month_plot: a plot of the storm_events_2017_by_month_tibble tibble
+
+mean_jan_range: the mean range of the storm in January 2017 
+^^the same goes for mean_jan_range to mean_december range
+
+month_year_weather_2017: a string used to reconfigure the dates in the storm data dataset
+
+mean_range_values: a string of all the mean ranges each month in 2017
+
+tidy_range_tibble: a new tibble for the storm data that includes the date and the range
+
+tidy_range_plot: a plot of the tidy_range_tibble tibble
+
+nasdaq_2017_by_month: the stock prices of NASDAQ each month in 2017
+
+nasdaq_2017_by_month_tibble: a tibble of nasdaq_2017_by_month
+
+nasdaq_2017_by_month_plot: a plot of the nasdaq_2017_by_month_tibble tibble
+
+weather_nasdaq_2017_combined: a combined tibble of the nasdaq_2017_by_month_tibble and tidy_range_tibble tibbles
+
+weather_nasdaq_2017_combined_plot: a plot of weather_nasdaq_2017_combined
+
+df_nasdaq_close_monthly: a data frame of the NASDAQ closing prices each month in 2017
+
+df_nasdaq_open_monthly: a data frame of the NASDAQ open prices each month in 2017
+
+range_weather_monthly: a data frame of the storm range each month in 2017
+
+df_sp500_close_monthly:a data frame of the S&P 500 close prices each month in 2017
+
+sp500_by_month_2017_tibble: tibble with S&P 500 close prices and months of the year in 2017
+
+sp500_2017_by_month_plot: plot of the S&P 500 close prices each month
+
+range_NASDAQ_SP500_2017: tibble that combines the relevant data from all datasets
